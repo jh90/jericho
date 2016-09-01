@@ -1,0 +1,55 @@
+classes: PLAYER, OPPONENT
+classes: ATTACKER, DEFENDER
+class: GAME
+--> GAME initializes new ATTACKER and DEFENDER with new PLAYER and OPPONENT
+
+ATTACKER HAS
+num fighters
+num archers
+num distance
+ON EACH TURN CAN
+move() OR
+attack()
+--> fireVolley() UNLESS r=0
+OR --> launchCatapult() UNLESS r<some distance
+[maybe:] OR --> batteringRam() IF r=0
+
+DEFENDER HAS
+num fighters
+num archers
+num distance
+num wallHealth
+ON EACH TURN CAN
+repairWall() OR
+attack()
+--> fireVolley()
+OR --> pourBoilingOil() IF r=0
+
+.distance: tracked and decremented in GAME
+
+launchCatapult(), batteringRam(), repairWall() affect DEFENDER.wallHealth
+fireVolley(), pourBoilingOil() affect .fighters, .archers
+
+DEFENDER.fireVolley() deals more damage than ATTACKER.fireVolley() --> high ground advantage - balances ATTACKER.launchCatapult()?
+
+GAME.render() --> renders battlefield, wall, army
+--> calls ATTACKER. and DEFENDER.render() --> display current stats and available ACTIONS, set click events for PLAYER ACTION
+
+GAME.renderTurn()
+>> trigger when PLAYER clicks an ACTION
+>> get OPPONENT ACTION
+>> remove unclicked ACTION displays
+>> render animation of PLAYER ACTION
+>> render animation of OPPONENT ACTION
+>> render displays of ACTION results
+>> call GAME.render()
+
+GAME.winCheck() --> if DEF.wallHealth OR ATT.fighters OR DEF.fighters+DEF.archers =0, other side wins
+
+USER STORIES
+user wants to pick side
+user wants to choose action on turn
+user needs to see action results
+user needs to see current selfstats
+user needs to see current oppstats
+user finds out who won
