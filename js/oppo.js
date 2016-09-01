@@ -1,49 +1,54 @@
 class Opponent {
-  constructor(side) {
+  constructor (side) {
     this.side = side;
   }
-  moveOrAttack() {
+
+  moveOrAttack () {
     const decision = Math.round(Math.random());
     if (this.side.steps === 0 || decision === 0) {
-      return 'attack';
+      this.chooseOffense();
     }
     else if (decision === 1) {
-      return 'move';
+      this.side.move();
     }
   }
-  moveOrRepair() {
+
+  repairOrAttack () {
     const decision = Math.round(Math.random());
     if (this.side.wallHealth === 100 || decision === 0) {
-      return 'attack';
+      this.chooseDefense();
     }
     else if (decision === 1) {
-      return 'repair';
+      this.side.repair();
     }
   }
-  chooseDefense() {
+
+  chooseDefense () {
     const decision = Math.round(Math.random());
     if (this.side.steps > 0) {
-      return 'volley';
+      this.side.fireVolley();
     }
     else if (decision === 0) {
-      return 'volley';
+      this.side.fireVolley();
     }
     else if (decision === 1) {
-      return 'oil';
+      this.side.pourBoilingOil();
     }
   }
-  chooseOffense() {
+
+  chooseOffense () {
     const decision = Math.round(Math.random());
     if (this.side.steps > 2) {
-      if(decision === 0) {
-        return 'catapult';
+      if (decision === 0) {
+        this.side.launchCatapult();
       }
       else if (decision === 1) {
-        return 'volley'
+        this.side.fireVolley();
       }
     }
     else if (this.side.steps > 0) {
-      return 'volley';
+      this.side.fireVolley();
     }
   }
+
 }
