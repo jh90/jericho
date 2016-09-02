@@ -78,14 +78,3 @@ class Game {
     }
   }
 }
-
-/*play(turn):
-takes a turn value
-checks for win
-if not, checks turn value
-if A-->attacker.renderDisplay, D-->defender.renderDisplay
-[human.renderdisplay generates buttons - waits - button is clicked - corresponding A/D method is called - that method
-calls .relayDamage then .play]
-[oppo.renderdisplay generates stats - calls on control.methods to make a decision, then selected A/D method, which calls
-.relay and .play]
-*/
