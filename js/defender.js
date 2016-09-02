@@ -1,7 +1,7 @@
 class Defender {
   constructor (game) {
-    this.fighters =
-    this.archers =
+    this.fighters = 50;
+    this.archers = 20;
     this.wallHealth = 100;
     this.control = null;
     this.human = true;
@@ -44,3 +44,4 @@ class Defender {
 - animation
 - game.relayDamage(damage,'A')
 - game.play('A')
+*/

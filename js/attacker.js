@@ -1,7 +1,7 @@
 class Attacker {
   constructor (game) {
-    this.fighters =
-    this.archers =
+    this.fighters = 50;
+    this.archers = 20;
     this.human = true;
     this.control = null;
     this.game = game;
@@ -44,3 +44,4 @@ class Attacker {
  - animate
  - game.relayDamage(damage,'D' if volley or 'W' if catapult)
  - game.play('D')
+*/

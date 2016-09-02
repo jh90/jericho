@@ -1,4 +1,4 @@
-class Game() {
+class Game {
   constructor () {
     this.attacker = null;
     this.defender = null;
@@ -24,8 +24,8 @@ class Game() {
   }
 
   relayDamage (damage, target) {
-    let fighterCasualties = damage / 2;
-    let archerCasualties = damage / 4;
+    let fighterCasualties = damage / 4;
+    let archerCasualties = damage / 8;
     switch (target) {
       case 'W':
         this.defender.wallHealth -= damage;
@@ -60,9 +60,11 @@ class Game() {
       case undefined:
         if (turn === 'A') {
           this.attacker.renderDisplay();
+          console.log('ATTACKER TURN');
         }
         else {
           this.defender.renderDisplay();
+          console.log('DEFENDER TURN');
         }
       break;
       case 'A':
@@ -86,3 +88,4 @@ if A-->attacker.renderDisplay, D-->defender.renderDisplay
 calls .relayDamage then .play]
 [oppo.renderdisplay generates stats - calls on control.methods to make a decision, then selected A/D method, which calls
 .relay and .play]
+*/
