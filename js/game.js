@@ -2,6 +2,7 @@ class Game() {
   constructor () {
     this.attacker = null;
     this.defender = null;
+    this.steps = 10;
   }
 
   setPlayers () {
@@ -22,9 +23,37 @@ class Game() {
     }
   }
 
-  relayDamage (damage, target) {}
+  relayDamage (damage, target) {
+    let fighterCasualties = damage / 2;
+    let archerCasualties = damage / 4;
+    switch (target) {
+      case 'W':
+        this.defender.wallHealth -= damage;
+      break;
+      case 'D':
+        this.defender.fighters -= fighterCasualties;
+        this.defender.archers -= archerCasualties;
+      break;
+      case 'A':
+        this.attacker.fighters -= fighterCasualties;
+        this.attacker.archers -= archerCasualties;
+      break;
+      default:
+        return undefined;
+    }
+  }
 
-  checkWin () {}
+  checkWin () {
+    if (this.attacker.fighters <= 0 && this.attacker.archers <= 0) {
+      return 'D';
+    }
+    else if ((this.defender.fighters <= 0 && this.defender.archers <= 0) || (this.defender.wallHealth <= 0)) {
+      return 'A';
+    }
+    else {
+      return undefined;
+    }
+  }
 
   play (turn) {
     switch (this.checkWin()) {
@@ -35,13 +64,15 @@ class Game() {
         else {
           this.defender.renderDisplay();
         }
-        break;
+      break;
       case 'A':
         console.log('FIRE AND BLOOD!');
-        break;
+      break;
       case 'D':
         console.log('BLOOD AND FIRE!');
-        break;
+      break;
+      default:
+        return undefined;
     }
   }
 }

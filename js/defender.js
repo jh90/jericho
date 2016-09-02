@@ -2,7 +2,6 @@ class Defender {
   constructor (game) {
     this.fighters =
     this.archers =
-    this.steps =
     this.wallHealth = 100;
     this.control = null;
     this.human = true;
@@ -10,26 +9,29 @@ class Defender {
   }
 
   renderDisplay () {
-
+    //buttons: VOLLEY, OIL, REPAIR
+    //no OIL before step0
+    //no REPAIR after step2
   }
 
   repair () {
-    if (this.steps > 0 && this.wallHealth != 100) {
-      this.wallHealth += 10;
+    let repairs = 5 + Math.round(Math.random() * 5);
+    if (this.game.steps > 0 && this.wallHealth != 100) {
+      this.wallHealth += repairs;
     }
-    //animate
+    //animate-?
     this.game.play('A');
   }
 
   fireVolley () {
-    //damage calc
+    let damage = Math.round(Math.random() * this.archers * 2) + this.archers;
     //animate
     this.game.relayDamage(damage,'A');
     this.game.play('A');
   }
 
   pourBoilingOil () {
-    //damage calc
+    let damage = Math.round(Math.random() * 15);
     //animate
     this.game.relayDamage(damage,'A');
     this.game.play('A');
