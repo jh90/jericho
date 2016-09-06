@@ -11,7 +11,7 @@ class Game {
     $('body').append($attackDisplay);
     $('body').append($defendDisplay);
     this.attacker = new Attacker(this, $attackDisplay);
-    this.defender = new Defender(this, $defenseDisplay);
+    this.defender = new Defender(this, $defendDisplay);
     let choice = prompt('ATTACKER or DEFENDER?');
     if(choice === 'ATTACKER') {
       this.defender.control = new Opponent(this.defender);

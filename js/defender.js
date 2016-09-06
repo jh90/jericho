@@ -65,7 +65,7 @@ initializeDisplay () {
   generateButton (element, name) {
     let hic = this;
     let $clicker = $('<li>').html(name);
-    switch name {
+    switch (name) {
       case 'ARCHERS FIRE':
         $clicker.on('click', () => {
           hic.fireVolley();
@@ -94,7 +94,7 @@ initializeDisplay () {
       let volley = this.generateButton($('.arrows'), 'ARCHERS FIRE');
       let repairs = this.generateButton($('.repair'), 'REBUILD WALLS');
       let napalm = this.generateButton($('.oil'), 'BOILING OIL');
-      switch threshold {
+      switch (threshold) {
         case null:
           $('.arrows').append(volley);
           $('.repair').append(repairs);

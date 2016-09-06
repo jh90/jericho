@@ -49,7 +49,16 @@ class Attacker {
 
   fireVolley () {
     const damage = Math.round(Math.random() * this.archers) + this.archers;
-    //animate
+    let $arrowEl = $('<div>').addClass('arrow-fire');
+    $('#ground').append($arrowEl);
+    let $arrowImg = $('<img>').attr('src','https://maxcdn.icons8.com/Share/icon/Sports//archers_arrow1600.png');
+    $arrowImg.addClass('arrow-img');
+    $arrowEl.html($arrowImg);
+    $arrowEl.animate({
+      left: '-=38em',
+      top: '-=7em',
+    }, 2000);
+    setTimeout(() => {$arrowEl.remove();}, 2500);
     this.game.relayDamage(damage,'D');
     this.game.clearButtons();
     this.game.play('D');
@@ -72,7 +81,7 @@ class Attacker {
   generateButton (element, name) {
     let hic = this;
     let $clicker = $('<li>').html(name);
-    switch name {
+    switch (name) {
       case 'MARCH':
         $clicker.on('click', () => {
           hic.move();
@@ -100,7 +109,7 @@ class Attacker {
       let march = this.generateButton($('.move'), 'MARCH');
       let fire = this.generateButton($('.arrow'), 'ARCHERS FIRE');
       let launch = this.generateButton($('.catapult'), 'LAUNCH CATAPULT');
-      switch threshold {
+      switch (threshold) {
         case null:
           $('.move').append(march);
           $('.arrow').append(fire);
