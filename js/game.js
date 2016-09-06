@@ -19,7 +19,7 @@ class Game {
     }
     else if (choice === 'DEFENDER') {
       this.attacker.control = new Opponent(this.attacker);
-      this.defender.human = false;
+      this.attacker.human = false;
     }
     else {
       console.log('Invalid selection');

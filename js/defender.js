@@ -44,13 +44,21 @@ initializeDisplay () {
     if (this.game.steps > 0 && this.wallHealth != 100) {
       this.wallHealth += repairs;
     }
-    //animate-?
     this.game.play('A');
   }
 
   fireVolley () {
     let damage = Math.round(Math.random() * this.archers * 2) + this.archers;
-    //animate
+    let $arrowEl = $('<div>').addClass('defense-arrow');
+    $('#ground').append($arrowEl);
+    let $arrowImg = $('<img>').attr('src','https://maxcdn.icons8.com/Share/icon/Sports//archers_arrow1600.png');
+    $arrowImg.addClass('arrow-img');
+    $arrowEl.html($arrowImg);
+    $arrowEl.animate({
+      left: '+=82em',
+      bottom: '-=8em',
+    }, 2000);
+    setTimeout(() => {$arrowEl.remove();}, 2200);
     this.game.relayDamage(damage,'A');
     this.game.play('A');
   }

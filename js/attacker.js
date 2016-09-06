@@ -41,7 +41,9 @@ class Attacker {
   move () {
     if (this.game.steps > 0) {
       this.game.steps -= 1;
-      //animate
+      $('.att').animate({
+        right: '+=8em'
+      }, 2000);
       this.game.clearButtons();
       this.game.play('D');
     }
@@ -49,16 +51,16 @@ class Attacker {
 
   fireVolley () {
     const damage = Math.round(Math.random() * this.archers) + this.archers;
-    let $arrowEl = $('<div>').addClass('arrow-fire');
+    let $arrowEl = $('<div>').addClass('attack-arrow');
     $('#ground').append($arrowEl);
     let $arrowImg = $('<img>').attr('src','https://maxcdn.icons8.com/Share/icon/Sports//archers_arrow1600.png');
     $arrowImg.addClass('arrow-img');
     $arrowEl.html($arrowImg);
     $arrowEl.animate({
-      left: '-=38em',
+      left: '-=82em',
       top: '-=7em',
     }, 2000);
-    setTimeout(() => {$arrowEl.remove();}, 2500);
+    setTimeout(() => {$arrowEl.remove();}, 2200);
     this.game.relayDamage(damage,'D');
     this.game.clearButtons();
     this.game.play('D');
@@ -66,7 +68,7 @@ class Attacker {
 
   launchCatapult () {
     const damage = 15 + Math.round(Math.random() * 15);
-    //animate
+    let $
     this.game.relayDamage(damage,'W');
     this.game.clearButtons();
     this.game.play('D');
