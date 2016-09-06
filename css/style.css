@@ -4,6 +4,14 @@ body {
   margin: 0;
 }
 
+ul {
+  list-style: none;
+}
+
+li {
+  list-style: none;
+}
+
 #ground {
   background-color: green;
   height: 50%;
@@ -82,5 +90,25 @@ body {
 
 .button {
   background-color: black;
+  color: white;
+}
+
+.display.defender {
+  width: 25%;
+  float: left;
+}
+
+.display.attacker {
+  width: 25%;
+  float: right;
+}
+
+.display.defstats {
+  background: black;
+  color: white;
+}
+
+.display.attstats {
+  background: black;
   color: white;
 }

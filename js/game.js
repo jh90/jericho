@@ -30,8 +30,8 @@ class Game {
   }
 
   relayDamage (damage, target) {
-    let fighterCasualties = damage / 4;
-    let archerCasualties = damage / 8;
+    let fighterCasualties = Math.round(damage / 4);
+    let archerCasualties = Math.round(damage / 8);
     switch (target) {
       case 'W':
         this.defender.wallHealth -= damage;
@@ -62,21 +62,19 @@ class Game {
   }
 
   clearButtons() {
-    $('.display div.button li').remove();
+    $('.clicker').remove();
   }
 
   play (turn) {
     switch (this.checkWin()) {
       case null:
         if (turn === 'A') {
-          this.clearButtons();
           this.attacker.renderDisplay();
-          //console.log('ATTACKER TURN');
+          console.log('ATTACKER TURN');
         }
-        else {
-          this.clearButtons();
+        else if (turn === 'D') {
           this.defender.renderDisplay();
-          //console.log('DEFENDER TURN');
+          console.log('DEFENDER TURN');
         }
       break;
       case 'A':

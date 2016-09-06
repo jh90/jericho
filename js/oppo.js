@@ -25,7 +25,7 @@ class Opponent {
 
   chooseDefense () {
     const decision = Math.round(Math.random());
-    if (this.side.steps > 0 || decision === 0) {
+    if (this.side.game.steps > 0 || decision === 0) {
       this.side.fireVolley();
     }
     else if (decision === 1) {

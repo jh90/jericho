@@ -9,12 +9,12 @@ class Attacker {
   }
 
   initializeDisplay () {
-    const $statsWrapper = $('<div>').addClass('display attstats');
-    const $liveArchers = $('<div>').addClass('stat attarchers');
-    const $liveFighters = $('<div>').addClass('stat attfighters');
-    const $turnsLeft = $('div').addClass('stat steps');
+    const $statsWrapper = $('<ul>').addClass('display attstats');
+    const $liveArchers = $('<li>').addClass('stat attarchers').html(this.archers);
+    const $liveFighters = $('<li>').addClass('stat attfighters').html(this.fighters);
+    const $turnsLeft = $('<li>').addClass('stat steps').html(this.game.steps);
     const stats = [$liveArchers, $liveFighters, $turnsLeft];
-    stats.forEach((stat) => {$('.display.attstats').append(stat);});
+    stats.forEach((stat) => {$statsWrapper.append(stat);});
     this.el.append($statsWrapper);
     if (this.human) {
       const buttonWrapper = $('<div>').addClass('display buttons');
@@ -83,6 +83,7 @@ class Attacker {
   generateButton (element, name) {
     let hic = this;
     let $clicker = $('<li>').html(name);
+    $clicker.addClass('clicker');
     switch (name) {
       case 'MARCH':
         $clicker.on('click', () => {
@@ -130,8 +131,11 @@ class Attacker {
       }
     }
     else {
-      this.control.moveOrAttack();
+      setTimeout(() => {this.control.moveOrAttack();}, 500);
     }
+    $('.stat.attarchers').html(this.archers);
+    $('.stat.attfighters').html(this.fighters);
+    $('.stat.steps').html(this.game.steps);
   }
 
 }

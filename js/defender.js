@@ -10,13 +10,13 @@ class Defender {
   }
 
 initializeDisplay () {
-    const $statsWrapper = $('<div>').addClass('display defstats');
-    const $liveArchers = $('<div>').addClass('stat defarchers');
-    const $liveFighters = $('<div>').addClass('stat deffighters');
-    const $turnsLeft = $('div').addClass('stat steps');
-    const $wall = $('<div>').addClass('stat wall');
+    const $statsWrapper = $('<ul>').addClass('display defstats');
+    const $liveArchers = $('<li>').addClass('stat defarchers');
+    const $liveFighters = $('<li>').addClass('stat deffighters').html(this.fighters);
+    const $turnsLeft = $('<li>').addClass('stat steps').html(this.game.steps);
+    const $wall = $('<li>').addClass('stat wall').html(this.wallHealth);
     const stats = [$liveArchers, $liveFighters, $wall, $turnsLeft];
-    stats.forEach((stat) => {$('.display.defstats').append(stat);});
+    stats.forEach((stat) => {$statsWrapper.append(stat);});
     this.el.append($statsWrapper);
     if (this.human) {
       const $arrowsButton = $('<div>').addClass('button arrows');
@@ -73,6 +73,7 @@ initializeDisplay () {
   generateButton (element, name) {
     let hic = this;
     let $clicker = $('<li>').html(name);
+    $clicker.addClass('clicker');
     switch (name) {
       case 'ARCHERS FIRE':
         $clicker.on('click', () => {
@@ -120,7 +121,7 @@ initializeDisplay () {
       }
     }
     else {
-      this.control.repairOrAttack();
+      setTimeout(() => {this.control.repairOrAttack();}, 500);
     }
   }
 
