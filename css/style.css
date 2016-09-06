@@ -12,6 +12,47 @@ body {
   bottom: 0;
 }
 
+#wall {
+  height: 13em;
+  width: 2em;
+  position: absolute;
+  bottom: 8em;
+  left: 15em;
+  background-color: red;
+}
+
+#att-army {
+  position: absolute;
+  right: 6em;
+  bottom: 9em;
+  height: 6em;
+  width: 23em;
+  padding: 0;
+  margin: 0;
+}
+
+.soldiers {
+  height: 5em;
+  width: 4.5em;
+  margin: .25em;
+}
+
+#catapult {
+  position: absolute;
+  right: .5em;
+  bottom: 4em;
+  height: 12em;
+  width: 12em;
+  padding: 0;
+  margin: 0;
+}
+
+#catapic {
+  height: 50%;
+  width: 75%;
+  padding: 0;
+}
+
 .button {
   background-color: black;
   color: white;
