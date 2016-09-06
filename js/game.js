@@ -6,8 +6,12 @@ class Game {
   }
 
   setPlayers () {
-    this.attacker = new Attacker(this);
-    this.defender = new Defender(this);
+    const $attackDisplay = $('<div>').addClass('display attacker');
+    const $defendDisplay = $('<div>').addClass('display defender');
+    $('body').append($attackDisplay);
+    $('body').append($defendDisplay);
+    this.attacker = new Attacker(this, $attackDisplay);
+    this.defender = new Defender(this, $defenseDisplay);
     let choice = prompt('ATTACKER or DEFENDER?');
     if(choice === 'ATTACKER') {
       this.defender.control = new Opponent(this.defender);
@@ -21,6 +25,8 @@ class Game {
       console.log('Invalid selection');
       this.setPlayers();
     }
+    this.attacker.initializeDisplay();
+    this.defender.initializeDisplay();
   }
 
   relayDamage (damage, target) {
@@ -51,20 +57,26 @@ class Game {
       return 'A';
     }
     else {
-      return undefined;
+      return null;
     }
+  }
+
+  clearButtons() {
+    $('.display div.button li').remove();
   }
 
   play (turn) {
     switch (this.checkWin()) {
-      case undefined:
+      case null:
         if (turn === 'A') {
+          this.clearButtons();
           this.attacker.renderDisplay();
-          console.log('ATTACKER TURN');
+          //console.log('ATTACKER TURN');
         }
         else {
+          this.clearButtons();
           this.defender.renderDisplay();
-          console.log('DEFENDER TURN');
+          //console.log('DEFENDER TURN');
         }
       break;
       case 'A':

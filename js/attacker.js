@@ -1,46 +1,33 @@
 class Attacker {
-  constructor (game) {
+  constructor (game, display) {
     this.fighters = 50;
     this.archers = 20;
     this.human = true;
     this.control = null;
     this.game = game;
+    this.el = display;
   }
 
   initializeDisplay () {
-    const $display = $('<div>').addClass('display attacker').;
-    $('body').append(display);
-    let $mdiv = $('<div>');
-    let $adiv = $('<div>');
-    let $cdiv = $('<div>');
-    const moveButton = new Button(this.move(), 'Move', $mdiv);
-    const arrowButton = new Button(this.fireVolley(), 'Archers', $adiv);
-    const catapultButton = new Button(this.launchCatapult(), 'Catapult', $cdiv);
-    $display.append(moveButton);
-    $display.append(arrowButton);
-    $display.append(catapultButton);
-  }
-
-  renderDisplay () {
-    const $moveButton = $('<div>').addClass('move button');
-    const $arrowButton = $('<div>').addClass('arrow button');
-    const $catapultButton = $('<div>').addClass('catapult button');
-    const buttons = [$moveButton,$arrowButton,$catapultButton];
-    buttons.forEach((button) => {$('.attacker').append(button);});
-    const hic = this;
-    $moveButton.on('click',(e) = > {
-      hic.move();
-    });
-    $arrowButton.on('click',(e) = > {
-      hic.fireVolley();
-    });
-    $catapultButton.on('click',(e) = > {
-      hic.launchCatapult();
-    });
+    const $statsWrapper = $('<div>').addClass('display attstats');
+    const $liveArchers = $('<div>').addClass('stat attarchers');
+    const $liveFighters = $('<div>').addClass('stat attfighters');
+    const $turnsLeft = $('div').addClass('stat steps');
+    const stats = [$liveArchers, $liveFighters, $turnsLeft];
+    stats.forEach((stat) => {$('.display.attstats').append(stat);});
+    this.el.append($statsWrapper);
+    if (this.human) {
+      const buttonWrapper = $('<div>').addClass('display buttons');
+      const $moveButton = $('<div>').addClass('button move');
+      const $arrowButton = $('<div>').addClass('button arrow');
+      const $catapultButton = $('<div>').addClass('button catapult');
+      const buttons = [$moveButton, $arrowButton, $catapultButton];
+      buttons.forEach ((button) => { $('.display.attacker').append(button); });
+    }
   }
 
   nearEnd () {
-    if(this.game.steps > 2) {
+    if (this.game.steps > 2) {
       return null;
     }
     else if(this.game.steps = 2) {
@@ -52,9 +39,10 @@ class Attacker {
   }
 
   move () {
-    if(this.game.steps > 0) {
+    if (this.game.steps > 0) {
       this.game.steps -= 1;
       //animate
+      this.game.clearButtons();
       this.game.play('D');
     }
   }
@@ -63,6 +51,7 @@ class Attacker {
     const damage = Math.round(Math.random() * this.archers) + this.archers;
     //animate
     this.game.relayDamage(damage,'D');
+    this.game.clearButtons();
     this.game.play('D');
   }
 
@@ -70,6 +59,7 @@ class Attacker {
     const damage = 15 + Math.round(Math.random() * 15);
     //animate
     this.game.relayDamage(damage,'W');
+    this.game.clearButtons();
     this.game.play('D');
   }
 
@@ -78,6 +68,61 @@ class Attacker {
     //damage is uniformly calculated from force=archers+fighters
     //repeat until wincheck triggers
   }
+
+  generateButton (element, name) {
+    let hic = this;
+    let $clicker = $('<li>').html(name);
+    switch name {
+      case 'MARCH':
+        $clicker.on('click', () => {
+          hic.move();
+        });
+      break;
+      case 'ARCHERS FIRE':
+        $clicker.on('click', () => {
+          hic.fireVolley();
+        });
+      break;
+      case 'LAUNCH CATAPULT':
+        $clicker.on('click', () => {
+          hic.launchCatapult();
+        });
+      break;
+      default:
+        return undefined;
+    }
+    return $clicker;
+  }
+
+  renderDisplay () {
+    if (this.human) {
+      let threshold = this.nearEnd();
+      let march = this.generateButton($('.move'), 'MARCH');
+      let fire = this.generateButton($('.arrow'), 'ARCHERS FIRE');
+      let launch = this.generateButton($('.catapult'), 'LAUNCH CATAPULT');
+      switch threshold {
+        case null:
+          $('.move').append(march);
+          $('.arrow').append(fire);
+          $('.catapult').append(launch);
+        break;
+        case 2:
+          $('.move').append(march);
+          $('.arrow').append(fire);
+        break;
+        case 1:
+          $('.arrow').append(fire);
+        break;
+        default:
+          alert('broken!');
+          return undefined;
+      }
+    }
+    else {
+      this.control.moveOrAttack();
+    }
+  }
+
 }
 
  /*attacks:
