@@ -11,7 +11,7 @@ class Defender {
 
 initializeDisplay () {
     const $statsWrapper = $('<ul>').addClass('display defstats');
-    const $liveArchers = $('<li>').addClass('stat defarchers');
+    const $liveArchers = $('<li>').addClass('stat defarchers').html(this.archers);
     const $liveFighters = $('<li>').addClass('stat deffighters').html(this.fighters);
     const $turnsLeft = $('<li>').addClass('stat steps').html(this.game.steps);
     const $wall = $('<li>').addClass('stat wall').html(this.wallHealth);
