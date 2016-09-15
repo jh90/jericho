@@ -63,13 +63,6 @@ initializeDisplay () {
     this.game.play('A');
   }
 
-  pourBoilingOil () {
-    let damage = Math.round(Math.random() * 15);
-    //animate
-    this.game.relayDamage(damage,'A');
-    this.game.play('A');
-  }
-
   generateButton (element, name) {
     let hic = this;
     let $clicker = $('<li>').html(name);

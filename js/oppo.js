@@ -16,26 +16,16 @@ class Opponent {
   repairOrAttack () {
     const decision = Math.round(Math.random());
     if (this.side.wallHealth === 100 || decision === 0 || this.side.game.steps < 2) {
-      this.chooseDefense();
-    }
-    else if (decision === 1) {
-      this.side.repair();
-    }
-  }
-
-  chooseDefense () {
-    const decision = Math.round(Math.random());
-    if (this.side.game.steps > 0 || decision === 0) {
       this.side.fireVolley();
     }
     else if (decision === 1) {
-      this.side.pourBoilingOil();
+      this.side.repair
     }
   }
 
   chooseOffense () {
     const decision = Math.round(Math.random());
-    if (this.side.game.steps > 2) {
+    if (this.side.game.steps > 1) {
       if (decision === 0) {
         this.side.launchCatapult();
       }
@@ -43,12 +33,5 @@ class Opponent {
         this.side.fireVolley();
       }
     }
-    else if (this.side.game.steps > 0) {
-      this.side.fireVolley();
-    }
-    else if (this.side.game.steps === 0) {
-      this.side.fight();
-    }
   }
-
 }

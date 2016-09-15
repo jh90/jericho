@@ -84,12 +84,6 @@ class Attacker {
     this.game.play('D');
   }
 
-  fight() {
-    //invoke at step0
-    //damage is uniformly calculated from force=archers+fighters
-    //repeat until wincheck triggers
-  }
-
   generateButton (element, name) {
     let hic = this;
     let $clicker = $('<li>').html(name);
